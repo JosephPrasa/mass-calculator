@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #282c35;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+        }
+
+        #calculator {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            max-width: 400px;
+        }
+
+        #display {
+            grid-column: span 4;
+            padding: 10px;
+            text-align: right;
+            font-size: 1.5em;
+            background-color: #181a1f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        button {
+            padding: 15px;
+            font-size: 1.2em;
+            text-align: center;
+            background-color: #3a3f4a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #525765;
+        }
+
+        .operator {
+            background-color: #fd9526;
+        }
+
+        .equals {
+            background-color: #61bf7e;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="calculator">
+        <input type="text" id="display" readonly>
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+        <button class="operator">/</button>
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button class="operator">*</button>
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button class="operator">-</button>
+        <button>0</button>
+        <button>.</button>
+        <button class="equals operator">=</button>
+        <button class="operator">+</button>
+    </div>
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    let displayValue = '';
+
+    const display = document.getElementById('display');
+    const buttons = document.querySelectorAll('button');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', function () {
+            const buttonText = button.innerText;
+
+            if (buttonText === 'C') {
+                clearDisplay();
+            } else if (buttonText === '=') {
+                calculateResult();
+            } else {
+                appendToDisplay(buttonText);
+            }
+        });
+    });
+
+    function appendToDisplay(value) {
+        displayValue += value;
+        display.value = displayValue;
+    }
+
+    function calculateResult() {
+        try {
+            displayValue = eval(displayValue);
+            display.value = displayValue;
+        } catch (error) {
+            display.value = 'Error';
+        }
+    }
+
+    function clearDisplay() {
+        displayValue = '';
+        display.value = '';
+    }
+});
+
+</script>
+
+</html>
